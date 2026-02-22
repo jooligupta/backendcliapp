@@ -1,14 +1,14 @@
 const SubCategory = require("../models/SubCategory");
 
 const createSubCategory = async (req, res) => {
-    try {
-        console.log("BODY 👉", req.body); // 🔍 DEBUG
-
+    try {  
+      
         const { name, category } = req.body;
 
         const subCategory = await SubCategory.create({
             name,
-            category
+            category,
+            image: req.file ? req.file.path : null
         });
 
         res.status(201).json(subCategory);
@@ -17,8 +17,6 @@ const createSubCategory = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
-module.exports = { createSubCategory };
 
 
 const getSubCategories = async (req, res) => {

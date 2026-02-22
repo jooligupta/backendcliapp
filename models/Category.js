@@ -8,7 +8,10 @@ const categorySchema = new mongoose.Schema({
     slug: {
         type: String,
         unique: true
+    },
+    image: {
+        type: String   // store image path or URL
     }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Category", categorySchema);

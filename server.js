@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 app.use(express.json()); // 🔥 REQUIRED
 app.use(express.urlencoded({ extended: true })); // (s
-
+app.use("/uploads", express.static("uploads"));
 
 app.use(cors());
 app.use("/api/auth", authRoutes);

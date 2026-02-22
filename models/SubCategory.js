@@ -9,6 +9,9 @@ const mongoose = require("mongoose");
         type:mongoose.Schema.Types.ObjectId,
         ref:"Category",
         required:true
+    },
+    image:{
+        type:String
     }
  })
  module.exports = mongoose.model("SubCategory",subCategorySchema);

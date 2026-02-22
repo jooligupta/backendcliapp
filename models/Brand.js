@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const brandSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
     isActive: { type: Boolean, default: true },
+    image:{
+        type:String,
+    },
     createdAt: {
         type: Date,
         default: Date.now

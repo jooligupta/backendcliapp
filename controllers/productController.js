@@ -1,13 +1,44 @@
 const Product = require("../models/Product");
 
 const createProduct = async (req, res) => {
-  console.log("🔥 BODY:", req.body);
-  const product = await Product.create(req.body);
-  res.json(product);
+  try {
+    const {
+      name,
+      categoryId,
+      subCategoryId,
+      brandId,
+      price,
+      stock,
+      description,
+      attributes
+    } = req.body;
+
+    // collect uploaded images
+    // const imagePaths = req.files.map(file => file.path);
+    let imagePaths = [];
+    if (req.files && req.files.images && Array.isArray(req.files.images)) {
+      imagePaths = req.files.images.map(file => file.path);  // ✅ सही
+    }
+
+    const product = await Product.create({
+      name,
+      slug: name.toLowerCase().replace(/\s+/g, "-"),
+      categoryId,
+      subCategoryId,
+      brandId,
+      price,
+      stock,
+      description,
+      images: imagePaths,
+      attributes: attributes ? JSON.parse(attributes) : []
+    });
+
+    res.status(201).json(product);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
-
-
-
 // const getProducts = async (req, res) => {
 //   const products = await Product.find()
 //     .populate("categoryId", "name")
